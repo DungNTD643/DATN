@@ -13,9 +13,9 @@ module PTO_test(
 //	output reg [31:0] counter_timeout,
 //	output reg [31:0] pulse_count
 );
-	localparam period_max_us = 100;
-	localparam T_hold_us = 15000;
-	localparam period_min_us = 50;
+	localparam period_max_us = 250;
+	localparam T_hold_us = 5000;
+	localparam period_min_us = 100;
 	localparam step = 2;
 	
 //	localparam pulse_start = 10000;
@@ -61,7 +61,7 @@ module PTO_test(
 		end
 		else if(rst == 1)
 		begin
-			if(pulse_count == pulse_end || program_end == 1)
+			if((pulse_count >= pulse_end) || (program_end == 1))
 			begin
 				counter_clk <= 0;
 				counter_us <= 0;
@@ -73,6 +73,7 @@ module PTO_test(
 				pulse_count <= 0;
 				rerun <= 0;
 				pre_rerun <= 0;
+				program_end <= 1;
 			end
 			
 			else
@@ -193,7 +194,7 @@ module PTO_test(
 							pto_out = 0;
 							counter_us = 0;
 							pulse_count = pulse_count + 1;
-							if(pulse_count == pulse_end)
+							if(pulse_count >= pulse_end)
 							begin
 								program_end = 1;
 							end

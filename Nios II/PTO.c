@@ -9,7 +9,6 @@
 
 static alt_u8 a1 = 0;
 static alt_u8 a0 = 0;
-static alt_u8 mm = 10;
 
 void PTO_run(MOTOR_t *user_config){
 	if((user_config->motor_ID) == 0){
@@ -43,8 +42,8 @@ void PTO_config(MOTOR_t *user_config){
 		if(a0){
 			while(!IORD(DRIVER1_0_BASE, 0));
 		}
-		IOWR(DRIVER1_0_BASE, 1, mm * pulse_per_degree);
-		IOWR(DRIVER1_0_BASE, 2, (user_config->rotate_degree - mm) * pulse_per_degree);
+		IOWR(DRIVER1_0_BASE, 1, start_degree * pulse_per_degree);
+		IOWR(DRIVER1_0_BASE, 2, (user_config->rotate_degree - start_degree) * pulse_per_degree);
 		IOWR(DRIVER1_0_BASE, 3, user_config->rotate_degree * pulse_per_degree);
 		IOWR(DRIVER1_0_BASE, 4, user_config->direction);
 	}
@@ -52,8 +51,8 @@ void PTO_config(MOTOR_t *user_config){
 		if(a1){
 			while(!IORD(DRIVER1_1_BASE, 0));
 		}
-		IOWR(DRIVER1_1_BASE, 1, mm * pulse_per_degree);
-		IOWR(DRIVER1_1_BASE, 2, (user_config->rotate_degree - mm) * pulse_per_degree);
+		IOWR(DRIVER1_1_BASE, 1, start_degree * pulse_per_degree);
+		IOWR(DRIVER1_1_BASE, 2, (user_config->rotate_degree - start_degree) * pulse_per_degree);
 		IOWR(DRIVER1_1_BASE, 3, user_config->rotate_degree * pulse_per_degree);
 		IOWR(DRIVER1_1_BASE, 4, user_config->direction);
 	}

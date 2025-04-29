@@ -39,8 +39,6 @@ void uart_tx(alt_u8 *data_send, alt_u32 numb_byte){
 alt_u8 uart_cmd_receive(){
 	if(end_of_command == 1){
 		end_of_command = 0;
-//		alt_putstr(data_rx);
-		printf("\n");
 		return 1;
 	}
 	return 0;

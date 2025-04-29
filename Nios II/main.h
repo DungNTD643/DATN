@@ -14,13 +14,15 @@
 #include "stdlib.h"
 #include "alt_types.h"
 
-#define pulse_per_degree  	278
+#define pulse_per_degree  	347
 
-#define CCW				  	1
-#define CW					0
+#define CCW				  	0
+#define CW					1
 
 #define MOTOR_0				0
 #define MOTOR_1				1
+
+#define start_degree		10
 
 typedef struct{
 	alt_u8 direction;

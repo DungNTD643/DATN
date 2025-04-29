@@ -89,33 +89,10 @@ int main()
   uart_innit();
   MOTOR1.motor_ID = MOTOR_0;
   MOTOR2.motor_ID = MOTOR_1;
-//  MOTOR1.rotate_degree = 25;
-//  MOTOR1.direction = CCW;
-//  MOTOR2.rotate_degree = 25;
-//  MOTOR2.direction = CCW;
-//
-//  PTO_config(&MOTOR1);
-//  PTO_config(&MOTOR2);
-//  PTO_run(&MOTOR1);
-//  		  PTO_run(&MOTOR2);
-//  usleep(5000000);
-//  MOTOR1.direction = CW;
-//  MOTOR2.direction = CW;
-//  PTO_config(&MOTOR1);
-//   PTO_config(&MOTOR2);
-//   PTO_run(&MOTOR1);
-//   PTO_run(&MOTOR2);
-
   /* Event loop never exits. */
   while (1){
 	  if(uart_cmd_receive()){
 		  uart_read_cmd();
-//		  printf("ID: %d\n", MOTOR1.motor_ID);
-//		  printf("Direction: %d\n", MOTOR1.direction);
-//		  printf("Rotate degree: %d\n", MOTOR1.rotate_degree);
-//		  printf("ID: %d\n", MOTOR2.motor_ID);
-//		  printf("Direction: %d\n", MOTOR2.direction);
-//		  printf("Rotate degree: %d\n", MOTOR2.rotate_degree);
 		  PTO_config(&MOTOR1);
 		  PTO_config(&MOTOR2);
 		  PTO_run(&MOTOR1);
