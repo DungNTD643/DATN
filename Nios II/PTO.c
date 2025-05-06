@@ -57,3 +57,15 @@ void PTO_config(MOTOR_t *user_config){
 		IOWR(DRIVER1_1_BASE, 4, user_config->direction);
 	}
 }
+
+void PTO_Innit(){
+	IOWR(DRIVER1_0_BASE, 5, 250);	//period_max_us
+	IOWR(DRIVER1_0_BASE, 6, 150);	//period_min_us
+	IOWR(DRIVER1_0_BASE, 7, 2);		//us
+	IOWR(DRIVER1_0_BASE, 8, 5000);	//T_hold_us
+
+	IOWR(DRIVER1_1_BASE, 5, 250);	//period_max_us
+	IOWR(DRIVER1_1_BASE, 6, 150);	//period_min_us
+	IOWR(DRIVER1_1_BASE, 7, 2);		//us
+	IOWR(DRIVER1_1_BASE, 8, 5000);	//T_hold_us
+}

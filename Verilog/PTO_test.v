@@ -5,6 +5,11 @@ module PTO_test(
 	input wire [31:0] pulse_stop,
 	input wire [31:0] pulse_start,
 	
+	input wire [31:0] period_max_us,
+	input wire [31:0] T_hold_us,
+	input wire [31:0] period_min_us,
+	input wire [31:0] step,
+	
 	output reg program_end,
 	output reg pto_out
 //	output reg flag,
@@ -13,11 +18,11 @@ module PTO_test(
 //	output reg [31:0] counter_timeout,
 //	output reg [31:0] pulse_count
 );
-	localparam period_max_us = 250;
-	localparam T_hold_us = 5000;
-	localparam period_min_us = 100;
-	localparam step = 2;
-	
+//	localparam period_max_us = 250;
+//	localparam T_hold_us = 5000;
+//	localparam period_min_us = 100;
+//	localparam step = 2;
+//	
 //	localparam pulse_start = 10000;
 //	localparam pulse_stop = 390000;
 //	localparam pulse_end = 400000;

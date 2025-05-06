@@ -87,6 +87,7 @@ int main()
 { 
   alt_putstr("Hello from Nios II!\n");
   uart_innit();
+  PTO_Innit();
   MOTOR1.motor_ID = MOTOR_0;
   MOTOR2.motor_ID = MOTOR_1;
   /* Event loop never exits. */

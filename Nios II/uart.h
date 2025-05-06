@@ -10,6 +10,7 @@
 #include "system.h"
 #include "sys/alt_stdio.h"
 #include "alt_types.h"
+#include "sys/alt_irq.h"
 #include "altera_avalon_uart_regs.h"
 #include "string.h"
 #include "main.h"
