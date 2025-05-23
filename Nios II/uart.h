@@ -14,12 +14,12 @@
 #include "altera_avalon_uart_regs.h"
 #include "string.h"
 #include "main.h"
+#include "PTO.h"
 
 
 void uart_innit();
 void uart_isr(void *context, alt_u32 id);
 void uart_tx(alt_u8 *data_send, alt_u32 numb_byte);
-alt_u8 uart_cmd_receive();
 void uart_read_cmd();
 
 

@@ -8,10 +8,11 @@
 
 static alt_u8 *data_rx;
 static alt_u32 count = 0;
-static alt_u8 end_of_command;
+//static alt_u8 end_of_command;
 
 MOTOR_t MOTOR1;
 MOTOR_t MOTOR2;
+MOTOR_t MOTOR3;
 
 static parse_cmd state = Idle;
 void uart_innit(){
@@ -22,9 +23,17 @@ void uart_innit(){
 void uart_isr(void *context, alt_u32 id){
 	data_rx[count] = IORD_ALTERA_AVALON_UART_RXDATA(UART_0_BASE);
 	if(data_rx[count] == ';'){
-		end_of_command = 1;
+		uart_read_cmd();
+		PTO_angle(&MOTOR1);
+		PTO_angle(&MOTOR2);
+		PTO_angle(&MOTOR3);
+		PTO_run(&MOTOR1);
+		PTO_run(&MOTOR2);
+		PTO_run(&MOTOR3);
 	}
-	count++;
+	else{
+		count++;
+	}
 	IORD_ALTERA_AVALON_UART_STATUS(UART_0_BASE);
 }
 
@@ -34,14 +43,6 @@ void uart_tx(alt_u8 *data_send, alt_u32 numb_byte){
 		IOWR_ALTERA_AVALON_UART_TXDATA(UART_0_BASE, data_send[i]);
 		usleep(50);
 	}
-}
-
-alt_u8 uart_cmd_receive(){
-	if(end_of_command == 1){
-		end_of_command = 0;
-		return 1;
-	}
-	return 0;
 }
 
 void uart_read_cmd(){
@@ -92,6 +93,7 @@ void uart_read_cmd(){
 				else{
 					MOTOR2.direction = CW;
 				}
+				end_of_motor1 += 5;
 			}
 			else if((MOTOR2.rotate_degree >= 10) && (MOTOR2.rotate_degree < 100)){
 				if(!strncmp((const char*)(data_rx + end_of_motor1 + 4), "CC", 2)){
@@ -100,6 +102,7 @@ void uart_read_cmd(){
 				else{
 					MOTOR2.direction = CW;
 				}
+				end_of_motor1 += 6;
 			}
 			else{
 				if(!strncmp((const char*)(data_rx + end_of_motor1 + 5), "CC", 2)){
@@ -107,6 +110,36 @@ void uart_read_cmd(){
 				}
 				else{
 					MOTOR2.direction = CW;
+				}
+				end_of_motor1 += 7;
+			}
+			state = Angle_3;
+		case Angle_3:
+			MOTOR3.rotate_degree = atoi((const char*)(data_rx + end_of_motor1 + 2));
+			state = Direction_3;
+		case Direction_3:
+			if(MOTOR3.rotate_degree < 10){
+				if(!strncmp((const char*)(data_rx + end_of_motor1 + 3), "CC", 2)){
+					MOTOR3.direction = CCW;
+				}
+				else{
+					MOTOR3.direction = CW;
+				}
+			}
+			else if((MOTOR3.rotate_degree >= 10) && (MOTOR3.rotate_degree < 100)){
+				if(!strncmp((const char*)(data_rx + end_of_motor1 + 4), "CC", 2)){
+					MOTOR3.direction = CCW;
+				}
+				else{
+					MOTOR3.direction = CW;
+				}
+			}
+			else{
+				if(!strncmp((const char*)(data_rx + end_of_motor1 + 5), "CC", 2)){
+					MOTOR3.direction = CCW;
+				}
+				else{
+					MOTOR3.direction = CW;
 				}
 			}
 			state = End;

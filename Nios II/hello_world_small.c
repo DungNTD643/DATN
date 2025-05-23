@@ -80,6 +80,7 @@
 
 #include "PTO.h"
 #include "uart.h"
+#include "as5600.h"
 #include "main.h"
 
 alt_u32 motor_angle;
@@ -87,18 +88,12 @@ int main()
 { 
   alt_putstr("Hello from Nios II!\n");
   uart_innit();
-  PTO_Innit();
-  MOTOR1.motor_ID = MOTOR_0;
-  MOTOR2.motor_ID = MOTOR_1;
+  as5600_innit();
+  PTO_innit();
+  usleep(1000000);
   /* Event loop never exits. */
   while (1){
-	  if(uart_cmd_receive()){
-		  uart_read_cmd();
-		  PTO_config(&MOTOR1);
-		  PTO_config(&MOTOR2);
-		  PTO_run(&MOTOR1);
-		  PTO_run(&MOTOR2);
-	  }
+	  as5600_read_angle();
+	  usleep(500000);
   }
-  return 0;
 }

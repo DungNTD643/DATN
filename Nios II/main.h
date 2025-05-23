@@ -21,8 +21,10 @@
 
 #define MOTOR_0				0
 #define MOTOR_1				1
+#define MOTOR_2				2
 
-#define start_degree		10
+#define start_degree		6
+
 
 typedef struct{
 	alt_u8 direction;
@@ -36,10 +38,15 @@ typedef enum{
 	Direction_1,
 	Angle_2,
 	Direction_2,
+	Angle_3,
+	Direction_3,
 	End
 }parse_cmd;
 
 extern MOTOR_t MOTOR1;
 extern MOTOR_t MOTOR2;
+extern MOTOR_t MOTOR3;
+
+
 
 #endif /* MAIN_H_ */

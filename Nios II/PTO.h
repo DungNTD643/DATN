@@ -17,8 +17,9 @@
 #include "main.h"
 
 void PTO_config(MOTOR_t *user_config);
-void PTO_run(MOTOR_t *user_config);
-void PTO_Innit();
+void PTO_angle(MOTOR_t *user_config);
+void PTO_speed();
+void PTO_innit();
 
 
 #endif /* PTO_H_ */
