@@ -46,6 +46,7 @@ typedef enum{
 extern MOTOR_t MOTOR1;
 extern MOTOR_t MOTOR2;
 extern MOTOR_t MOTOR3;
+extern alt_u32 motor_angle[3];
 
 
 

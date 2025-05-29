@@ -12,6 +12,9 @@
 #define DEV_ADDR	0x36
 
 void as5600_innit();
-void as5600_read_angle();
+alt_u32 as5600_read_angle(ALT_AVALON_I2C_DEV_t *i2c_dev);
+
+extern ALT_AVALON_I2C_DEV_t *i2c_dev[3];
+
 
 #endif /* AS5600_H_ */

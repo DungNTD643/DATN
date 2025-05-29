@@ -81,19 +81,26 @@
 #include "PTO.h"
 #include "uart.h"
 #include "as5600.h"
+#include "string.h"
 #include "main.h"
 
-alt_u32 motor_angle;
+alt_u32 motor_angle[3];
+alt_u8 data_to_send[15];
 int main()
-{ 
-  alt_putstr("Hello from Nios II!\n");
-  uart_innit();
-  as5600_innit();
-  PTO_innit();
-  usleep(1000000);
+{
+	alt_u8 index;
+	uart_innit();
+	as5600_innit();
+	PTO_innit();
+	usleep(1000000);
   /* Event loop never exits. */
-  while (1){
-	  as5600_read_angle();
-	  usleep(500000);
-  }
+	while (1){
+	  for(index = 0; index < 3; index++){
+		  motor_angle[index] = as5600_read_angle(i2c_dev[index]);
+	  }
+	  printf("\n");
+	  snprintf(data_to_send, sizeof(data_to_send), "%d:%d:%d#", motor_angle[0], motor_angle[1], motor_angle[2]);
+	  uart_tx(data_to_send, strlen(data_to_send));
+	  usleep(10000);
+	}
 }
