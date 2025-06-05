@@ -14,7 +14,9 @@ module top_header (
 	scl_2,
 	sda_2,
 	scl_3,
-	sda_3);	
+	sda_3,
+	pio_0_external_connection_export,
+	pio_1_external_connection_export);	
 
 	input		clk_clk;
 	output	driver1_0_conduit_end_pto;
@@ -26,6 +28,9 @@ module top_header (
 	input		reset_reset_n;
 	input		uart_0_external_connection_rxd;
 	output	uart_0_external_connection_txd;
+	input		pio_0_external_connection_export;	
+	input		pio_1_external_connection_export;	
+	
 	inout wire scl_1;
 	inout wire sda_1;
 	inout wire scl_2;
@@ -46,7 +51,7 @@ module top_header (
 	wire i2c_2_serial_sda_in;
 	wire i2c_2_serial_sda_oe;
 	wire i2c_2_serial_scl_in;
-	wire i2c_2_serial_scl_oe;	
+	wire i2c_2_serial_scl_oe;
 	PTO u0 (
 		.clk_clk                           (clk_clk),                           //                        clk.clk
 		.driver1_0_conduit_end_pto         (driver1_0_conduit_end_pto),         //      driver1_0_conduit_end.pto
@@ -58,7 +63,8 @@ module top_header (
 		.reset_reset_n                     (reset_reset_n),                     //                      reset.reset_n
 		.uart_0_external_connection_rxd    (uart_0_external_connection_rxd),    // uart_0_external_connection.rxd
 		.uart_0_external_connection_txd    (uart_0_external_connection_txd),    //                           .txd
-		
+		.pio_0_external_connection_export  (pio_0_external_connection_export),
+		.pio_1_external_connection_export  (pio_1_external_connection_export),
 		.i2c_0_i2c_serial_sda_in           (i2c_0_serial_sda_in),           //           i2c_0_i2c_serial.sda_in
 		.i2c_0_i2c_serial_scl_in           (i2c_0_serial_scl_in),           //                           .scl_in
 		.i2c_0_i2c_serial_sda_oe           (i2c_0_serial_sda_oe),           //                           .sda_oe

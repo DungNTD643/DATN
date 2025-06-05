@@ -49,7 +49,7 @@ void PTO_run(MOTOR_t *user_config){
 }
 
 
-void PTO_angle(MOTOR_t *user_config){
+void PTO_config(MOTOR_t *user_config){
 	if((user_config->motor_ID) == 0){
 		if(a0){
 			while(!IORD(DRIVER1_0_BASE, 0));
@@ -114,11 +114,6 @@ void PTO_angle(MOTOR_t *user_config){
 			IOWR(DRIVER1_2_BASE, 6, 150);	//period_min_us
 		}
 	}
-}
-
-void PTO_speed(){
-
-
 }
 
 void PTO_innit(){

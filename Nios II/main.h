@@ -19,12 +19,20 @@
 #define CCW				  	0
 #define CW					1
 
+#define FALSE				0
+#define	TRUE				1
+
 #define MOTOR_0				0
 #define MOTOR_1				1
 #define MOTOR_2				2
 
 #define start_degree		6
 
+#define LOWER_BOUND_MOTOR2	100
+#define UPPER_BOUND_MOTOR2	290
+
+#define LOWER_BOUND_MOTOR3	150
+#define UPPER_BOUND_MOTOR3	270
 
 typedef struct{
 	alt_u8 direction;
@@ -43,10 +51,9 @@ typedef enum{
 	End
 }parse_cmd;
 
-extern MOTOR_t MOTOR1;
-extern MOTOR_t MOTOR2;
-extern MOTOR_t MOTOR3;
-extern alt_u32 motor_angle[3];
+
+extern int motor_angle[3];
+extern int true_angle[3];
 
 
 

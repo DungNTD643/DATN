@@ -83,8 +83,10 @@
 #include "as5600.h"
 #include "string.h"
 #include "main.h"
+#include "PIO_Interrupt.h"
 
-alt_u32 motor_angle[3];
+int motor_angle[3];
+int true_angle[3];
 alt_u8 data_to_send[15];
 int main()
 {
@@ -92,15 +94,20 @@ int main()
 	uart_innit();
 	as5600_innit();
 	PTO_innit();
-	usleep(1000000);
+	init_pio_0_input_interrupt();
+	init_pio_1_input_interrupt();
   /* Event loop never exits. */
 	while (1){
 	  for(index = 0; index < 3; index++){
 		  motor_angle[index] = as5600_read_angle(i2c_dev[index]);
 	  }
-	  printf("\n");
-	  snprintf(data_to_send, sizeof(data_to_send), "%d:%d:%d#", motor_angle[0], motor_angle[1], motor_angle[2]);
+	  for(index = 0; index < 3; index++){
+		  true_angle[index] = motor_angle[index] - off_set[index];
+		  if(true_angle[index] < 0){
+			  true_angle[index] += 360;
+		  }
+	  }
+	  snprintf(data_to_send, sizeof(data_to_send), "%d:%d:%d#", true_angle[0], true_angle[1], true_angle[2]);
 	  uart_tx(data_to_send, strlen(data_to_send));
-	  usleep(10000);
 	}
 }
